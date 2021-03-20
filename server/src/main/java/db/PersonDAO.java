@@ -12,10 +12,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PersonDAO {
+    private final Connection connection;
+
+    public PersonDAO(Connection connection){
+        this.connection = connection;
+    }
 
     public List<Person> getPersonsByRequest(DbFindPersonRequest request) {
         List<Person> persons = new ArrayList<>();
-        try(Connection connection = ConnectionUtil.getConnection()){
+        try{
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(createQuery(request));
 
