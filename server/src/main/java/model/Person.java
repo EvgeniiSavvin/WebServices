@@ -1,6 +1,7 @@
 package model;
 
 public class Person {
+    private int id;
     private String firstName;
     private String lastName;
     private int age;
@@ -9,7 +10,8 @@ public class Person {
 
     public Person(){}
 
-    public Person(String firstName, String lastName, int age, int height, boolean isMale) {
+    public Person(int id, String firstName, String lastName, int age, int height, boolean isMale) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

@@ -1,8 +1,8 @@
 package service;
 
-import db.DbFindPersonRequest;
+import db.requests.DbFindPersonRequest;
 import db.PersonDAO;
-import model.FindPersonRequest;
+import model.PersonRequest;
 import model.Person;
 
 import java.util.List;
@@ -13,9 +13,9 @@ import javax.jws.WebService;
 public class PersonWebService {
 
     @WebMethod(operationName = "getPersons")
-    public List<Person> getPersons(FindPersonRequest request) {
+    public List<Person> getPersons(PersonRequest request) {
         PersonDAO dao = new PersonDAO();
-        DbFindPersonRequest dbRequest = DbFindPersonRequest.parseRequest(request);
+        DbFindPersonRequest dbRequest = new DbFindPersonRequest(request);
         return dao.getPersonsByRequest(dbRequest);
     }
 }

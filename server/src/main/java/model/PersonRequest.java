@@ -1,10 +1,8 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+public class PersonRequest {
 
-public class FindPersonRequest {
-
+    private int id;
     private String firstName;
     private String lastName;
     private int age;
@@ -17,9 +15,10 @@ public class FindPersonRequest {
     private boolean isHeightSet;
     private boolean isMaleSet;
 
-    public FindPersonRequest(){}
+    public PersonRequest(){}
 
-    public FindPersonRequest(String firstName, String lastName, int age, int height, boolean isMale, boolean isFirstNameSet, boolean isLastNameSet, boolean isAgeSet, boolean isHeightSet, boolean isMaleSet) {
+    public PersonRequest(int id, String firstName, String lastName, int age, int height, boolean isMale, boolean isFirstNameSet, boolean isLastNameSet, boolean isAgeSet, boolean isHeightSet, boolean isMaleSet) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -110,5 +109,13 @@ public class FindPersonRequest {
 
     public void setMaleSet(boolean maleSet) {
         isMaleSet = maleSet;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
