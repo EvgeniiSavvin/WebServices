@@ -7,47 +7,49 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findPersonRequest complex type.
+ * <p>Java class for personRequest complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="findPersonRequest">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="age" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="ageSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="firstNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="heightSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="lastNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="male" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="maleSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="personRequest"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="age" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="ageSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="firstNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="heightSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="lastNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="male" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="maleSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findPersonRequest", propOrder = {
+@XmlType(name = "personRequest", propOrder = {
     "age",
     "ageSet",
     "firstName",
     "firstNameSet",
     "height",
     "heightSet",
+    "id",
     "lastName",
     "lastNameSet",
     "male",
     "maleSet"
 })
-public class FindPersonRequest {
+public class PersonRequest {
 
     protected int age;
     protected boolean ageSet;
@@ -55,6 +57,7 @@ public class FindPersonRequest {
     protected boolean firstNameSet;
     protected int height;
     protected boolean heightSet;
+    protected int id;
     protected String lastName;
     protected boolean lastNameSet;
     protected boolean male;
@@ -162,6 +165,22 @@ public class FindPersonRequest {
      */
     public void setHeightSet(boolean value) {
         this.heightSet = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
     }
 
     /**

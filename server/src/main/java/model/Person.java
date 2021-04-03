@@ -19,6 +19,14 @@ public class Person {
         this.isMale = isMale;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -61,8 +69,9 @@ public class Person {
 
     @Override
     public String toString() {
-        return "model.Person{" +
-                "firstName='" + firstName + '\'' +
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", height=" + height +

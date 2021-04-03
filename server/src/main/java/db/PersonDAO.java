@@ -15,20 +15,46 @@ import java.util.logging.Logger;
 public class PersonDAO {
 
     public List<Person> getPersonsByRequest(SqlPersonRequest request) {
-        List<Person> persons = new ArrayList<>();
-        try(Connection connection = ConnectionUtil.getConnection()){
-            Statement stmt = connection.createStatement();
+        return runDbOperation( stmt -> {
+            List<Person> persons = new ArrayList<>();
             ResultSet rs = stmt.executeQuery(request.getSqlRequest());
-
             while (rs.next()) {
                 Person person = createPersonFromResultSet(rs);
                 persons.add(person);
             }
+            return persons;
+        }, new ArrayList<>());
+    }
 
+    public int createPerson(SqlPersonRequest request){
+        return runDbOperation(stmt -> {
+            stmt.executeUpdate(request.getSqlRequest(), Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            return rs.next() ? rs.getInt(1) : -1;
+        }, -1);
+    }
+
+    public int deletePerson(SqlPersonRequest request){
+        return runDbOperationReturningStatus(request);
+    }
+
+    public int updatePerson(SqlPersonRequest request){
+        return runDbOperationReturningStatus(request);
+    }
+
+    private <T> T runDbOperation(DbFunction<T> operation, T fallbackValue){
+        T value = fallbackValue;
+        try(Connection connection = ConnectionUtil.getConnection()){
+            Statement stmt = connection.createStatement();
+            value = operation.apply(stmt);
         } catch (SQLException ex){
             Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return persons;
+        return value;
+    }
+
+    private int runDbOperationReturningStatus(SqlPersonRequest request){
+        return runDbOperation(stmt -> stmt.executeUpdate(request.getSqlRequest()), -1);
     }
 
     private Person createPersonFromResultSet(ResultSet rs) throws SQLException {

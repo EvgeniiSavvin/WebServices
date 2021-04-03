@@ -25,7 +25,7 @@ public class ConnectionUtil {
         try {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionUtil.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return connection;
     }
