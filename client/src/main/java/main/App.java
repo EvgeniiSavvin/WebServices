@@ -1,11 +1,11 @@
 package main;
 
 import client.PersonRequest;
+import client.PersonServiceException_Exception;
 import client.PersonWebService;
 import exceptions.WrongInputFormatException;
 import utils.CliUtils;
 
-import java.util.Map;
 import java.util.Scanner;
 
 import static utils.PersonRequestUtils.*;
@@ -67,6 +67,8 @@ public class App {
             } catch (WrongInputFormatException e) {
                 System.err.println(e.getMessage());
                 CliUtils.printUsage();
+            } catch (PersonServiceException_Exception e) {
+                System.err.println(e.getMessage() + ": " + e.getFaultInfo().getMessage());
             }
         }
     }

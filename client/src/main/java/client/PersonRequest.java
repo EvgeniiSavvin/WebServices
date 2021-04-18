@@ -12,25 +12,25 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="personRequest"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="age" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="ageSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="firstNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="heightSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="lastNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="male" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="maleSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="personRequest">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="age" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="ageSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="firstNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="heightSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="lastNameSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="male" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="maleSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 

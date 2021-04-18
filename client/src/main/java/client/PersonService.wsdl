@@ -4,17 +4,11 @@
 <xsd:import namespace="http://service/" schemaLocation="http://localhost:8080/PersonService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="deletePerson">
-<part name="parameters" element="tns:deletePerson"/>
+<message name="getPersons">
+<part name="parameters" element="tns:getPersons"/>
 </message>
-<message name="deletePersonResponse">
-<part name="parameters" element="tns:deletePersonResponse"/>
-</message>
-<message name="updatePerson">
-<part name="parameters" element="tns:updatePerson"/>
-</message>
-<message name="updatePersonResponse">
-<part name="parameters" element="tns:updatePersonResponse"/>
+<message name="getPersonsResponse">
+<part name="parameters" element="tns:getPersonsResponse"/>
 </message>
 <message name="createPerson">
 <part name="parameters" element="tns:createPerson"/>
@@ -22,42 +16,45 @@
 <message name="createPersonResponse">
 <part name="parameters" element="tns:createPersonResponse"/>
 </message>
-<message name="getPersons">
-<part name="parameters" element="tns:getPersons"/>
+<message name="PersonServiceException">
+<part name="fault" element="tns:PersonServiceException"/>
 </message>
-<message name="getPersonsResponse">
-<part name="parameters" element="tns:getPersonsResponse"/>
+<message name="updatePerson">
+<part name="parameters" element="tns:updatePerson"/>
+</message>
+<message name="updatePersonResponse">
+<part name="parameters" element="tns:updatePersonResponse"/>
+</message>
+<message name="deletePerson">
+<part name="parameters" element="tns:deletePerson"/>
+</message>
+<message name="deletePersonResponse">
+<part name="parameters" element="tns:deletePersonResponse"/>
 </message>
 <portType name="PersonWebService">
-<operation name="deletePerson">
-<input wsam:Action="http://service/PersonWebService/deletePersonRequest" message="tns:deletePerson"/>
-<output wsam:Action="http://service/PersonWebService/deletePersonResponse" message="tns:deletePersonResponse"/>
-</operation>
-<operation name="updatePerson">
-<input wsam:Action="http://service/PersonWebService/updatePersonRequest" message="tns:updatePerson"/>
-<output wsam:Action="http://service/PersonWebService/updatePersonResponse" message="tns:updatePersonResponse"/>
-</operation>
-<operation name="createPerson">
-<input wsam:Action="http://service/PersonWebService/createPersonRequest" message="tns:createPerson"/>
-<output wsam:Action="http://service/PersonWebService/createPersonResponse" message="tns:createPersonResponse"/>
-</operation>
 <operation name="getPersons">
 <input wsam:Action="http://service/PersonWebService/getPersonsRequest" message="tns:getPersons"/>
 <output wsam:Action="http://service/PersonWebService/getPersonsResponse" message="tns:getPersonsResponse"/>
 </operation>
+<operation name="createPerson">
+<input wsam:Action="http://service/PersonWebService/createPersonRequest" message="tns:createPerson"/>
+<output wsam:Action="http://service/PersonWebService/createPersonResponse" message="tns:createPersonResponse"/>
+<fault message="tns:PersonServiceException" name="PersonServiceException" wsam:Action="http://service/PersonWebService/createPerson/Fault/PersonServiceException"/>
+</operation>
+<operation name="updatePerson">
+<input wsam:Action="http://service/PersonWebService/updatePersonRequest" message="tns:updatePerson"/>
+<output wsam:Action="http://service/PersonWebService/updatePersonResponse" message="tns:updatePersonResponse"/>
+<fault message="tns:PersonServiceException" name="PersonServiceException" wsam:Action="http://service/PersonWebService/updatePerson/Fault/PersonServiceException"/>
+</operation>
+<operation name="deletePerson">
+<input wsam:Action="http://service/PersonWebService/deletePersonRequest" message="tns:deletePerson"/>
+<output wsam:Action="http://service/PersonWebService/deletePersonResponse" message="tns:deletePersonResponse"/>
+<fault message="tns:PersonServiceException" name="PersonServiceException" wsam:Action="http://service/PersonWebService/deletePerson/Fault/PersonServiceException"/>
+</operation>
 </portType>
 <binding name="PersonWebServicePortBinding" type="tns:PersonWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="deletePerson">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="updatePerson">
+<operation name="getPersons">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -74,8 +71,11 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="PersonServiceException">
+<soap:fault name="PersonServiceException" use="literal"/>
+</fault>
 </operation>
-<operation name="getPersons">
+<operation name="updatePerson">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -83,6 +83,21 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="PersonServiceException">
+<soap:fault name="PersonServiceException" use="literal"/>
+</fault>
+</operation>
+<operation name="deletePerson">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="PersonServiceException">
+<soap:fault name="PersonServiceException" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="PersonService">
