@@ -6,6 +6,12 @@ import client.PersonWebService;
 import exceptions.WrongInputFormatException;
 import utils.CliUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static utils.PersonRequestUtils.*;
@@ -26,6 +32,7 @@ public class App {
         String input;
         String command;
         PersonRequest request;
+        getCatImage();
         while (run) {
             CliUtils.printPrompt();
             input = CliUtils.removeWhitespaces(scanner.nextLine());
@@ -70,6 +77,15 @@ public class App {
             } catch (PersonServiceException_Exception e) {
                 System.err.println(e.getMessage() + ": " + e.getFaultInfo().getMessage());
             }
+        }
+    }
+
+    private void getCatImage(){
+        try {
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(personService.getCatPhoto()));
+            ImageIO.write(image, "jpg", new File("cat2.jpg"));
+        } catch (IOException e){
+            System.err.println("Failed to get cat photo =( " + e.getMessage());
         }
     }
 

@@ -11,10 +11,16 @@ import model.PersonRequest;
 import model.Person;
 import utils.PersonUtils;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.ws.soap.MTOM;
 
+@MTOM
 @WebService(serviceName = "PersonService")
 public class PersonWebService {
 
@@ -22,6 +28,16 @@ public class PersonWebService {
 
     public PersonWebService(){
         dao = new PersonDAO();
+    }
+
+    @WebMethod(operationName = "getCatPhoto")
+    public Image getCatPhoto(){
+        try{
+            return ImageIO.read(getClass().getResource("/images/cat.jpg"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @WebMethod(operationName = "getPersons")

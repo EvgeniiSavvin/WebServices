@@ -28,6 +28,18 @@ public interface PersonWebService {
 
     /**
      * 
+     * @return
+     *     returns byte[]
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCatPhoto", targetNamespace = "http://service/", className = "client.GetCatPhoto")
+    @ResponseWrapper(localName = "getCatPhotoResponse", targetNamespace = "http://service/", className = "client.GetCatPhotoResponse")
+    @Action(input = "http://service/PersonWebService/getCatPhotoRequest", output = "http://service/PersonWebService/getCatPhotoResponse")
+    public byte[] getCatPhoto();
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.util.List<client.Person>
@@ -50,14 +62,14 @@ public interface PersonWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createPerson", targetNamespace = "http://service/", className = "client.CreatePerson")
-    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://service/", className = "client.CreatePersonResponse")
-    @Action(input = "http://service/PersonWebService/createPersonRequest", output = "http://service/PersonWebService/createPersonResponse", fault = {
-        @FaultAction(className = PersonServiceException_Exception.class, value = "http://service/PersonWebService/createPerson/Fault/PersonServiceException")
+    @RequestWrapper(localName = "deletePerson", targetNamespace = "http://service/", className = "client.DeletePerson")
+    @ResponseWrapper(localName = "deletePersonResponse", targetNamespace = "http://service/", className = "client.DeletePersonResponse")
+    @Action(input = "http://service/PersonWebService/deletePersonRequest", output = "http://service/PersonWebService/deletePersonResponse", fault = {
+        @FaultAction(className = PersonServiceException_Exception.class, value = "http://service/PersonWebService/deletePerson/Fault/PersonServiceException")
     })
-    public int createPerson(
+    public int deletePerson(
         @WebParam(name = "arg0", targetNamespace = "")
-        PersonRequest arg0)
+        int arg0)
         throws PersonServiceException_Exception
     ;
 
@@ -90,14 +102,14 @@ public interface PersonWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePerson", targetNamespace = "http://service/", className = "client.DeletePerson")
-    @ResponseWrapper(localName = "deletePersonResponse", targetNamespace = "http://service/", className = "client.DeletePersonResponse")
-    @Action(input = "http://service/PersonWebService/deletePersonRequest", output = "http://service/PersonWebService/deletePersonResponse", fault = {
-        @FaultAction(className = PersonServiceException_Exception.class, value = "http://service/PersonWebService/deletePerson/Fault/PersonServiceException")
+    @RequestWrapper(localName = "createPerson", targetNamespace = "http://service/", className = "client.CreatePerson")
+    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://service/", className = "client.CreatePersonResponse")
+    @Action(input = "http://service/PersonWebService/createPersonRequest", output = "http://service/PersonWebService/createPersonResponse", fault = {
+        @FaultAction(className = PersonServiceException_Exception.class, value = "http://service/PersonWebService/createPerson/Fault/PersonServiceException")
     })
-    public int deletePerson(
+    public int createPerson(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0)
+        PersonRequest arg0)
         throws PersonServiceException_Exception
     ;
 

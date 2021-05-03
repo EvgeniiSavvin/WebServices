@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetCatPhoto_QNAME = new QName("http://service/", "getCatPhoto");
     private final static QName _GetPersonsResponse_QNAME = new QName("http://service/", "getPersonsResponse");
     private final static QName _GetPersons_QNAME = new QName("http://service/", "getPersons");
     private final static QName _PersonServiceException_QNAME = new QName("http://service/", "PersonServiceException");
@@ -32,6 +33,7 @@ public class ObjectFactory {
     private final static QName _UpdatePersonResponse_QNAME = new QName("http://service/", "updatePersonResponse");
     private final static QName _DeletePerson_QNAME = new QName("http://service/", "deletePerson");
     private final static QName _UpdatePerson_QNAME = new QName("http://service/", "updatePerson");
+    private final static QName _GetCatPhotoResponse_QNAME = new QName("http://service/", "getCatPhotoResponse");
     private final static QName _CreatePerson_QNAME = new QName("http://service/", "createPerson");
 
     /**
@@ -90,6 +92,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetCatPhoto }
+     * 
+     */
+    public GetCatPhoto createGetCatPhoto() {
+        return new GetCatPhoto();
+    }
+
+    /**
      * Create an instance of {@link GetPersonsResponse }
      * 
      */
@@ -106,19 +116,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetCatPhotoResponse }
+     * 
+     */
+    public GetCatPhotoResponse createGetCatPhotoResponse() {
+        return new GetCatPhotoResponse();
+    }
+
+    /**
      * Create an instance of {@link UpdatePerson }
      * 
      */
     public UpdatePerson createUpdatePerson() {
         return new UpdatePerson();
-    }
-
-    /**
-     * Create an instance of {@link Person }
-     * 
-     */
-    public Person createPerson() {
-        return new Person();
     }
 
     /**
@@ -135,6 +145,23 @@ public class ObjectFactory {
      */
     public PersonServiceFault createPersonServiceFault() {
         return new PersonServiceFault();
+    }
+
+    /**
+     * Create an instance of {@link Person }
+     * 
+     */
+    public Person createPerson() {
+        return new Person();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCatPhoto }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service/", name = "getCatPhoto")
+    public JAXBElement<GetCatPhoto> createGetCatPhoto(GetCatPhoto value) {
+        return new JAXBElement<GetCatPhoto>(_GetCatPhoto_QNAME, GetCatPhoto.class, null, value);
     }
 
     /**
@@ -207,6 +234,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://service/", name = "updatePerson")
     public JAXBElement<UpdatePerson> createUpdatePerson(UpdatePerson value) {
         return new JAXBElement<UpdatePerson>(_UpdatePerson_QNAME, UpdatePerson.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCatPhotoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service/", name = "getCatPhotoResponse")
+    public JAXBElement<GetCatPhotoResponse> createGetCatPhotoResponse(GetCatPhotoResponse value) {
+        return new JAXBElement<GetCatPhotoResponse>(_GetCatPhotoResponse_QNAME, GetCatPhotoResponse.class, null, value);
     }
 
     /**
