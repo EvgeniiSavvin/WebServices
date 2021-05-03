@@ -1,5 +1,8 @@
 package model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Person {
     private String firstName;
     private String lastName;

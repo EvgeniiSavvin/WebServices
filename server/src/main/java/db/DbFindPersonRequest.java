@@ -1,22 +1,11 @@
 package db;
 
-import model.FindPersonRequest;
-
 public class DbFindPersonRequest {
     private String firstName;
     private String lastName;
     private Integer age;
     private Integer height;
     private Boolean isMale;
-
-    public static DbFindPersonRequest parseRequest(FindPersonRequest request){
-        String firstName = request.isFirstNameSet() ? request.getFirstName() : null;
-        String lastName = request.isLastNameSet() ? request.getLastName() : null;
-        Integer age = request.isAgeSet() ? request.getAge() : null;
-        Integer height = request.isHeightSet() ? request.getHeight() : null;
-        Boolean isMale  = request.isMaleSet() ? request.isMale() : null;
-        return new DbFindPersonRequest(firstName, lastName, age, height, isMale);
-    }
 
     public Boolean isEmpty(){
         return firstName == null &&
@@ -48,7 +37,7 @@ public class DbFindPersonRequest {
 
     public String getMaleAsDbQuery(){
         if(isMale == null) return "";
-        else return String.format("is_male = %s", isMale.toString());
+        else return String.format("is_male = %s", isMale);
     }
 
     public String getFirstName() {
@@ -91,7 +80,7 @@ public class DbFindPersonRequest {
         isMale = male;
     }
 
-    private DbFindPersonRequest(String firstName, String lastName, Integer age, Integer height, Boolean isMale) {
+    public DbFindPersonRequest(String firstName, String lastName, Integer age, Integer height, Boolean isMale) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

@@ -1,21 +1,29 @@
 package main;
 
-import client.FindPersonRequest;
-import client.PersonWebService;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.WebResource;
+import model.FindPersonRequest;
 import exceptions.WrongInputFormatException;
+import model.Person;
 import utils.CliUtils;
 
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import static utils.StringConstants.*;
 
 public class App {
-    private final Scanner scanner;
-    private final PersonWebService personService;
 
-    public App(PersonWebService personWebService) {
-        personService = personWebService;
+    private final Scanner scanner;
+    private final Client client;
+    private static final String url = "http://localhost:8080/rest/persons";
+
+    public App(Client client) {
+        this.client = client;
         scanner = new Scanner(System.in);
     }
 
@@ -39,7 +47,7 @@ public class App {
                 try{
                     paramMap = CliUtils.parseParams(params);
                     request = parseRequest(paramMap);
-                    CliUtils.printPersons(personService.getPersons(request));
+                    CliUtils.printPersons(getPersons(request));
                 } catch (WrongInputFormatException e){
                     System.err.println(e.getMessage());
                     CliUtils.printUsage();
@@ -50,6 +58,27 @@ public class App {
                 System.err.println(unknownCommand);
             }
         }
+    }
+
+    private List<Person> getPersons(FindPersonRequest request){
+        WebResource resource = client.resource(url);
+        resource = addParametersToResource(resource, request);
+        ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
+            throw new IllegalStateException("Request failed");
+        }
+        GenericType<List<Person>> type = new GenericType<List<Person>>() {};
+        return response.getEntity(type);
+    }
+
+    private WebResource addParametersToResource(WebResource inputResource, FindPersonRequest request){
+        WebResource resource = inputResource;
+        if(request.isFirstNameSet()) resource = resource.queryParam("firstname", request.getFirstName());
+        if(request.isLastNameSet()) resource = resource.queryParam("lastname", request.getLastName());
+        if(request.isAgeSet()) resource = resource.queryParam("age", "" + request.getAge());
+        if(request.isHeightSet()) resource = resource.queryParam("height", "" + request.getHeight());
+        if(request.isMaleSet()) resource = resource.queryParam("isMale", "" + request.isMale());
+        return resource;
     }
 
     private FindPersonRequest parseRequest(Map<String, String> params) throws WrongInputFormatException {
