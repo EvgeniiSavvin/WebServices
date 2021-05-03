@@ -20,7 +20,7 @@ public class App {
 
     private final Scanner scanner;
     private final Client client;
-    private static final String url = "http://localhost:8080/rest/persons";
+    private static final String url = "http://localhost:8080/Lab4_Server-1.0/rest/persons";
 
     public App(Client client) {
         this.client = client;
