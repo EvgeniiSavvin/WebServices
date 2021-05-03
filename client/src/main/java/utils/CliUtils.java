@@ -1,9 +1,8 @@
 package utils;
 
-import client.Person;
+import model.Person;
 import exceptions.WrongInputFormatException;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
