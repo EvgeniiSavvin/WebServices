@@ -10,6 +10,10 @@ public class DbCreatePersonRequest extends BaseDbPersonRequest implements SqlPer
         super(request);
     }
 
+    public DbCreatePersonRequest(Integer id, String firstName, String lastName, Integer age, Integer height, Boolean isMale) {
+        super(id, firstName, lastName, age, height, isMale);
+    }
+
     @Override
     public String getSqlRequest() {
         if (atLeastOneFieldIsEmpty()) throw new IllegalArgumentException("All fields should be not null");

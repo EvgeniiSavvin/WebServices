@@ -1,6 +1,6 @@
 package utils;
 
-import client.PersonRequest;
+import model.PersonRequest;
 import exceptions.WrongInputFormatException;
 
 import java.util.Map;

@@ -9,6 +9,10 @@ public class DbUpdatePersonRequest extends BaseDbPersonRequest implements SqlPer
         super(request);
     }
 
+    public DbUpdatePersonRequest(Integer id, String firstName, String lastName, Integer age, Integer height, Boolean isMale) {
+        super(id, firstName, lastName, age, height, isMale);
+    }
+
     @Override
     public String getSqlRequest() {
         return String.format("UPDATE %s\n", TableName) +

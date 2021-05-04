@@ -10,6 +10,10 @@ public class DbFindPersonRequest extends BaseDbPersonRequest implements SqlPerso
         super(request);
     }
 
+    public DbFindPersonRequest(Integer id, String firstName, String lastName, Integer age, Integer height, Boolean isMale) {
+        super(id, firstName, lastName, age, height, isMale);
+    }
+
     @Override
     public String getSqlRequest() {
         StringBuilder query = new StringBuilder();

@@ -4,16 +4,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import model.FindPersonRequest;
-import client.PersonRequest;
-import client.PersonWebService;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import exceptions.WrongInputFormatException;
 import model.Person;
+import model.PersonRequest;
 import utils.CliUtils;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import static utils.PersonRequestUtils.*;
@@ -44,27 +43,27 @@ public class App {
                 switch (command){
                     case Find:
                         request = createRequestFromUserInput(getParams(input));
-                        CliUtils.printPersons(personService.getPersons(request));
+                        CliUtils.printPersons(getPersons(request));
                         break;
 
                     case Create:
                         ensureParamsAreNotEmptyOrThrow(input);
                         request = createRequestFromUserInput(getParams(input));
                         ensureAllFieldsAreSetOrFail(request);
-                        CliUtils.printId(personService.createPerson(request));
+                        CliUtils.printId(createPerson(request));
                         break;
 
                     case Update:
                         ensureParamsAreNotEmptyOrThrow(input);
                         request = createRequestFromUserInput(getParams(input));
                         ensureIdAndAtLeastOneFieldIsSetOrFail(request);
-                        CliUtils.printOperationResult(personService.updatePerson(request), Update);
+                        CliUtils.printOperationResult(updatePerson(request), Update);
                         break;
 
                     case Delete:
                         ensureParamsAreNotEmptyOrThrow(input);
                         int id = parseDeleteRequest(getParams(input));
-                        CliUtils.printOperationResult(personService.deletePerson(id), Delete);
+                        CliUtils.printOperationResult(deletePerson(id), Delete);
                         break;
 
                     case Exit:
@@ -78,6 +77,71 @@ public class App {
                 System.err.println(e.getMessage());
                 CliUtils.printUsage();
             }
+        }
+    }
+
+    private int deletePerson(int id){
+        WebResource resource = client.resource(url + "/" + id);
+        ClientResponse response = resource.accept(MediaType.TEXT_PLAIN).delete(ClientResponse.class);
+        throwIfResponseIsInvalid(response);
+        GenericType<String> type = new GenericType<String>() {};
+        return Integer.parseInt(response.getEntity(type));
+    }
+
+    private int updatePerson(PersonRequest request){
+        WebResource resource = client.resource(url + "/" + request.getId());
+        ClientResponse response = resource
+                .type(MediaType.APPLICATION_FORM_URLENCODED)
+                .put(ClientResponse.class, generateFromData(request));
+        throwIfResponseIsInvalid(response);
+        GenericType<String> type = new GenericType<String>() {};
+        return Integer.parseInt(response.getEntity(type));
+    }
+
+    private int createPerson(PersonRequest request){
+        WebResource resource = client.resource(url);
+        ClientResponse response = resource
+                .type(MediaType.APPLICATION_FORM_URLENCODED)
+                .post(ClientResponse.class, generateFromData(request));
+        throwIfResponseIsInvalid(response);
+        GenericType<String> type = new GenericType<String>() {};
+        return Integer.parseInt(response.getEntity(type));
+    }
+
+    private List<Person> getPersons(PersonRequest request){
+        WebResource resource = client.resource(url);
+        resource = addQueryParametersToResource(resource, request);
+        ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        throwIfResponseIsInvalid(response);
+        GenericType<List<Person>> type = new GenericType<List<Person>>() {};
+        return response.getEntity(type);
+    }
+
+    private WebResource addQueryParametersToResource(WebResource inputResource, PersonRequest request){
+        WebResource resource = inputResource;
+        if(request.isFirstNameSet()) resource = resource.queryParam("firstname", request.getFirstName());
+        if(request.isLastNameSet()) resource = resource.queryParam("lastname", request.getLastName());
+        if(request.isAgeSet()) resource = resource.queryParam("age", "" + request.getAge());
+        if(request.isHeightSet()) resource = resource.queryParam("height", "" + request.getHeight());
+        if(request.isMaleSet()) resource = resource.queryParam("isMale", "" + request.isMale());
+        return resource;
+    }
+
+    private MultivaluedMap<String, String> generateFromData(PersonRequest request){
+        MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
+        if(request.isFirstNameSet()) formData.add("firstname", request.getFirstName());
+        if(request.isLastNameSet()) formData.add("lastname", request.getLastName());
+        if(request.isAgeSet()) formData.add("age", "" + request.getAge());
+        if(request.isHeightSet()) formData.add("height", "" + request.getHeight());
+        if(request.isMaleSet()) formData.add("isMale", "" + request.isMale());
+        return formData;
+    }
+
+    private void throwIfResponseIsInvalid(ClientResponse response){
+        if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
+            GenericType<String> type = new GenericType<String>() {};
+            String entity = response.getEntity(type);
+            throw new IllegalStateException("Request failed. Status " + response.getStatus() + " Entity: " + entity);
         }
     }
 
