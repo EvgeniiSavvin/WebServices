@@ -1,44 +1,9 @@
 
-package client;
+package model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
-/**
- * <p>Java class for person complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="person"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="age" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="male" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "person", propOrder = {
-    "age",
-    "firstName",
-    "height",
-    "id",
-    "lastName",
-    "male"
-})
+@XmlRootElement
 public class Person {
 
     protected int age;
@@ -106,7 +71,7 @@ public class Person {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      */
     public int getId() {
         return id;
@@ -114,7 +79,7 @@ public class Person {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      */
     public void setId(int value) {
         this.id = value;

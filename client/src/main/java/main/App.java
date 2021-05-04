@@ -1,10 +1,18 @@
 package main;
 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.WebResource;
+import model.FindPersonRequest;
 import client.PersonRequest;
 import client.PersonWebService;
 import exceptions.WrongInputFormatException;
+import model.Person;
 import utils.CliUtils;
 
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,11 +20,13 @@ import static utils.PersonRequestUtils.*;
 import static utils.StringConstants.*;
 
 public class App {
-    private final Scanner scanner;
-    private final PersonWebService personService;
 
-    public App(PersonWebService personWebService) {
-        personService = personWebService;
+    private final Scanner scanner;
+    private final Client client;
+    private static final String url = "http://localhost:8080/rest/persons";
+
+    public App(Client client) {
+        this.client = client;
         scanner = new Scanner(System.in);
     }
 
