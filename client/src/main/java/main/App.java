@@ -76,6 +76,8 @@ public class App {
             } catch (WrongInputFormatException e) {
                 System.err.println(e.getMessage());
                 CliUtils.printUsage();
+            } catch (IllegalArgumentException e){
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -138,6 +140,11 @@ public class App {
     }
 
     private void throwIfResponseIsInvalid(ClientResponse response){
+        if(response.getStatus() == ClientResponse.Status.BAD_REQUEST.getStatusCode()){
+            GenericType<String> type = new GenericType<String>() {};
+            String entity = response.getEntity(type);
+            throw new IllegalArgumentException(entity);
+        }
         if (response.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
             GenericType<String> type = new GenericType<String>() {};
             String entity = response.getEntity(type);

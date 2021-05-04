@@ -54,7 +54,7 @@ class BaseDbPersonRequest {
         return String.format("%s = %s", key, value.toString());
     }
 
-    protected Boolean fieldsAreEmpty(){
+    public Boolean fieldsAreEmpty(){
         return firstName == null &&
                 lastName == null &&
                 age == null &&
@@ -62,7 +62,7 @@ class BaseDbPersonRequest {
                 isMale == null;
     }
 
-    protected Boolean atLeastOneFieldIsEmpty(){
+    public Boolean atLeastOneFieldIsEmpty(){
         return firstName == null ||
                 lastName == null ||
                 age == null ||

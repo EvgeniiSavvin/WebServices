@@ -3,6 +3,8 @@ package resources;
 import db.PersonDAO;
 import db.requests.DbDeletePersonRequest;
 import db.requests.DbUpdatePersonRequest;
+import exceptions.ExceptionMessages;
+import exceptions.PersonServiceException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,13 +26,20 @@ public class PersonIdResource {
             @FormParam("age") Integer age,
             @FormParam("height") Integer height,
             @FormParam("isMale") Boolean isMale
-    ){
-        return String.valueOf(dao.updatePerson(new DbUpdatePersonRequest(id, firstname, lastname, age, height, isMale)));
+    ) throws PersonServiceException {
+        DataValidators.throwIfIdIsNull(id);
+        if(firstname != null) DataValidators.ensureNameIsNotEmptyOrThrow(firstname);
+        if(lastname != null) DataValidators.ensureNameIsNotEmptyOrThrow(lastname);
+        int result = dao.updatePerson(new DbUpdatePersonRequest(id, firstname, lastname, age, height, isMale));
+        if(result == 0) throw new PersonServiceException(ExceptionMessages.IdNotFound);
+        return String.valueOf(result);
     }
 
     @DELETE
-    public String deletePerson(@PathParam("id") Integer id){
-        if (id == null) return "-1";
-        return String.valueOf(dao.deletePerson(new DbDeletePersonRequest(id)));
+    public String deletePerson(@PathParam("id") Integer id) throws PersonServiceException{
+        DataValidators.throwIfIdIsNull(id);
+        int result = dao.deletePerson(new DbDeletePersonRequest(id));
+        if(result == 0) throw new PersonServiceException(ExceptionMessages.IdNotFound);
+        return String.valueOf(result);
     }
 }

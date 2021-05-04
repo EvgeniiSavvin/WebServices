@@ -3,6 +3,8 @@ package resources;
 import db.requests.DbCreatePersonRequest;
 import db.requests.DbFindPersonRequest;
 import db.PersonDAO;
+import exceptions.ExceptionMessages;
+import exceptions.PersonServiceException;
 import model.Person;
 
 import java.util.List;
@@ -37,7 +39,11 @@ public class PersonResource {
             @FormParam("age") Integer age,
             @FormParam("height") Integer height,
             @FormParam("isMale") Boolean isMale
-    ){
-        return String.valueOf(dao.createPerson(new DbCreatePersonRequest(null, firstname, lastname, age, height, isMale)));
+    ) throws PersonServiceException{
+        DbCreatePersonRequest request = new DbCreatePersonRequest(null, firstname, lastname, age, height, isMale);
+        if(request.atLeastOneFieldIsEmpty()) throw new PersonServiceException(ExceptionMessages.AllFieldsRequired);
+        DataValidators.ensureNameIsNotEmptyOrThrow(firstname);
+        DataValidators.ensureNameIsNotEmptyOrThrow(lastname);
+        return String.valueOf(dao.createPerson(request));
     }
 }
