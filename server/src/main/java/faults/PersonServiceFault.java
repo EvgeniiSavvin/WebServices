@@ -5,6 +5,7 @@ public class PersonServiceFault {
     private static final String IdNotFoundMessage = "Existing Person Id is required for this operation. Try to use Find command to get list of existing persons";
     private static final String IllegalNameMessage = "Name should not be empty or null";
     private static final String AllFieldsRequiredMessage = "All fields should be set for Create operation. Fields list: Firstname, Lastname, Age, Height, Gender";
+    private static final String UnauthorisedMessage = "This method requires basic authentication. Please provide valid login and password";
 
     protected String message;
 
@@ -37,6 +38,12 @@ public class PersonServiceFault {
     public static PersonServiceFault unknownId() {
         PersonServiceFault fault = new PersonServiceFault();
         fault.message = IdNotFoundMessage;
+        return fault;
+    }
+
+    public static PersonServiceFault unauthorised() {
+        PersonServiceFault fault = new PersonServiceFault();
+        fault.message = UnauthorisedMessage;
         return fault;
     }
 }
