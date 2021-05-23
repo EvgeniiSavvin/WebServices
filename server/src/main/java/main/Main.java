@@ -19,6 +19,7 @@ public class Main {
         HttpServer server;
         try{
             ResourceConfig config = new ClassNamesResourceConfig(PersonResource.class, PersonIdResource.class, PersonServiceExceptionMapper.class);
+            config.getProperties().put(ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS, "resources.auth.AuthenticationFilter");
             server = GrizzlyServerFactory.createHttpServer(BASE_URI, config);
             server.start();
             System.in.read();
