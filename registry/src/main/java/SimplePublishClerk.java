@@ -54,7 +54,7 @@ public class SimplePublishClerk {
                         // Creating the parent business entity that will contain our service.
                         BusinessEntity myBusEntity = new BusinessEntity();
                         Name myBusName = new Name();
-                        myBusName.setValue("My test Business");
+                        myBusName.setValue("ITMO Business");
                         myBusEntity.getName().add(myBusName);
                         // Adding the business entity to the "save" structure, using our publisher's authentication info and saving away.
                         BusinessEntity register = clerk.register(myBusEntity);
@@ -70,14 +70,14 @@ public class SimplePublishClerk {
                         BusinessService myService = new BusinessService();
                         myService.setBusinessKey(myBusKey);
                         Name myServName = new Name();
-                        myServName.setValue("My test Service");
+                        myServName.setValue("Person Service");
                         myService.getName().add(myServName);
 
                         // Add binding templates, etc...
                         BindingTemplate myBindingTemplate = new BindingTemplate();
                         AccessPoint accessPoint = new AccessPoint();
                         accessPoint.setUseType(AccessPointType.WSDL_DEPLOYMENT.toString());
-                        accessPoint.setValue("http://example.org/services/myservice?wsdl");
+                        accessPoint.setValue("http://localhost:8081/PersonService?wsdl");
                         myBindingTemplate.setAccessPoint(accessPoint);
                         BindingTemplates myBindingTemplates = new BindingTemplates();
                         //optional but recommended step, this annotations our binding with all the standard SOAP tModel instance infos
