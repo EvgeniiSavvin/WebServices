@@ -7,14 +7,14 @@ import org.uddi.api_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
 
-public class SimpleBrowse {
+public class ServiceFinder {
 
     private static UDDISecurityPortType security = null;
     private static UDDIInquiryPortType inquiry = null;
 
     private static final String ServiceName = "Person Service";
 
-    public SimpleBrowse() {
+    public ServiceFinder() {
         try {
             UDDIClient client = new UDDIClient("META-INF/uddi.xml");
             Transport transport = client.getTransport("default");

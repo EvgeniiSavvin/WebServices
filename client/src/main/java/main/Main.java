@@ -2,14 +2,14 @@ package main;
 
 import client.PersonService;
 import client.PersonWebService;
-import uddi.SimpleBrowse;
+import uddi.ServiceFinder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Main {
     public static void main(String[] args) throws MalformedURLException {
-        SimpleBrowse browser = new SimpleBrowse();
+        ServiceFinder browser = new ServiceFinder();
         String wsdlUrl = browser.findWsdl();
         if(wsdlUrl != null) {
             URL url = new URL("http://localhost:8081/PersonService?wsdl");
